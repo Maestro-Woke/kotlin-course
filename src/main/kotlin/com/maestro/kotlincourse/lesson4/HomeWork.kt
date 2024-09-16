@@ -1,0 +1,42 @@
+package com.maestro.kotlincourse.lesson4
+
+val num1: Int = 42
+val bigNum1: Long = 98765432123456789L
+val float1: Float = 23.45f
+val double1: Double = 0.123456789
+val text1: String = "Kotlin & Java"
+val bool1: Boolean = false
+val char1: Char = 'c'
+val num2: Int = 500
+val bigNum2: Long = 4294967296L
+val float2: Float = 18.0f
+val double2: Double = -0.001
+val text2: String = "OpenAI"
+val text3: String = "true"
+val char2: Char = '9'
+val num3: Int = 2048
+val bigNum3: Long = 10000000000L
+val float3: Float = 5.75f
+val double3: Double = 1.414
+val text4: String = "Artificial Intelligence"
+val bool2: Boolean = false
+val char3: Char = '@'
+val num4: Int = 1024
+val bigNum4: Long = 1234567890123L
+val float4: Float = 10.01f
+val double4: Double = -273.15
+val text5: String = "SpaceX"
+val bool3: Boolean = true
+val emoji1: String = "🤯"
+val char4: Char = '6'
+val bigNum5: Long = 72057594037927935L
+val float5: Float = 2.71828f
+val double5: Double = 101.0101
+val text6: String = "Quantum Computing"
+val bool4: Boolean = false
+val char5: Char = 'x'
+val num5: Int = 314
+val bigNum6: Long = 123456789123456789L
+val float6: Float = 6.626f
+val double6: Double = 0.007
+
