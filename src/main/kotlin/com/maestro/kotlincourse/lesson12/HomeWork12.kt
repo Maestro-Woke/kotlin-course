@@ -48,7 +48,7 @@ fun main() {
 
     // 9. Функция, которая не принимает аргументов и возвращает список nullable строк
     fun getNullableStringList(): List<String?> {
-        return listOf("Hello", null, "Kotlin")
+        return listOf("Sen", null, "Did")
     }
 
     // 10. Функция, которая принимает nullable строку и nullable целое число и возвращает nullable булево значение
@@ -99,7 +99,7 @@ fun main() {
             println(str)
         }
     }
-    val stringList = listOf("Привет", "Мир", null, "Kotlin")
+    val stringList = listOf("Привет", "Доуг", null, "Кто")
     println("Вывод строк из списка:")
     processList(stringList)
 }

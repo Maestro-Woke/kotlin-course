@@ -88,7 +88,7 @@ fun main() {
     val quarterFinalTeams: MutableMap<String, MutableList<String>> = mutableMapOf(
         "Команда А" to mutableListOf("Игрок 1", "Игрок 2", "Игрок 3"),
         "Команда B" to mutableListOf("Игрок 4", "Игрок 5", "Игрок 6"),
-        "Команда C" to mutableListOf("Игрок 7", "Игрок 8", "Игрок 9")
+        "Команда C" to mutableListOf("Игрок 7", "Игрок 8", "Игрок 10")
     )
 
     // Задание 9: Курс лечения
