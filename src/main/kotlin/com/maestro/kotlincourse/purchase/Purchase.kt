@@ -1,48 +1,50 @@
-package com.maestro.com.maestro.kotlincourse.purchase
+package com.maestro.kotlincourse.purchase
 
 import java.io.File
 import java.security.MessageDigest
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 data class Purchase(
     val orderId: String,
-    val customerName: String,
-    val purchaseDate: String,
+    val customerFullName: String,
     val equipmentType: String,
     val quantity: Int,
     val pricePerUnit: Double,
     val discount: Double,
     val paymentMethod: String
-)
+) {
+    var bonusPoints: Int = 0
+}
 
 fun generatePurchaseFile(purchase: Purchase): File {
-    // Проверка входных данных
     validatePurchase(purchase)
 
-    // Расчет общей стоимости с учетом скидки
+    // Расчет общей стоимости и бонусов
     val totalPrice = calculateTotalPrice(purchase.pricePerUnit, purchase.quantity, purchase.discount)
+    applyBonusPoints(purchase, totalPrice)
 
-    // Формируем строку с данными
+    val purchaseDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
     val data = """
-        |==============================
-        |Покупка горнолыжного снаряжения
+        |Дата создания файла: ${LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}
+        |Подписано хэш-кодом: ${generateHash(purchase)}
         |==============================
         |Идентификатор заказа: ${purchase.orderId}
-        |Имя клиента: ${purchase.customerName}
-        |Дата покупки: ${purchase.purchaseDate}
+        |Имя клиента: ${purchase.customerFullName}
+        |Дата покупки: $purchaseDate
         |Тип снаряжения: ${purchase.equipmentType}
         |Количество: ${purchase.quantity}
         |Цена за единицу: ${purchase.pricePerUnit} руб.
         |Скидка: ${purchase.discount}%
         |Итоговая стоимость: $totalPrice руб.
+        |Бонусные баллы: ${purchase.bonusPoints} 
         |Способ оплаты: ${purchase.paymentMethod}
         |------------------------------
-        |Дата создания файла: ${LocalDateTime.now()}
-        |Подписано хэш-кодом: ${generateHash(purchase)}
+        |Чек о покупке горнолыжного снаряжения
     """.trimMargin()
 
-    // Создаем файл и записываем в него данные
     val file = File("PurchaseDetails_${purchase.orderId}.txt")
     file.writeText(data)
 
@@ -50,8 +52,7 @@ fun generatePurchaseFile(purchase: Purchase): File {
 }
 
 fun validatePurchase(purchase: Purchase) {
-    require(purchase.customerName.isNotBlank()) { "Имя клиента не может быть пустым" }
-    require(purchase.purchaseDate.isNotBlank()) { "Дата покупки не может быть пустой" }
+    require(purchase.customerFullName.isNotBlank()) { "Имя клиента не может быть пустым" }
     require(purchase.equipmentType.isNotBlank()) { "Тип снаряжения не может быть пустым" }
     require(purchase.quantity > 0) { "Количество должно быть больше нуля" }
     require(purchase.pricePerUnit > 0) { "Цена за единицу должна быть больше нуля" }
@@ -63,8 +64,13 @@ fun calculateTotalPrice(pricePerUnit: Double, quantity: Int, discount: Double): 
     return total - (total * discount / 100)
 }
 
+// Новая функция для начисления бонусных баллов
+fun applyBonusPoints(purchase: Purchase, totalPrice: Double) {
+    purchase.bonusPoints = (totalPrice / 100).toInt()
+}
+
 fun generateHash(purchase: Purchase): String {
-    val input = purchase.orderId + purchase.customerName + purchase.purchaseDate +
+    val input = purchase.orderId + purchase.customerFullName +
             purchase.equipmentType + purchase.quantity + purchase.pricePerUnit +
             purchase.discount + purchase.paymentMethod
     val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
@@ -75,8 +81,7 @@ fun generateHash(purchase: Purchase): String {
 fun main() {
     val purchase = Purchase(
         orderId = UUID.randomUUID().toString(),
-        customerName = "Maestro Woke",
-        purchaseDate = "2024-10-14",
+        customerFullName = "Maestro Woke",
         equipmentType = "Лыжный комплект",
         quantity = 2,
         pricePerUnit = 13355.0,
