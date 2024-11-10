@@ -1,7 +1,7 @@
 package com.maestro.com.maestro.kotlincourse
 
 
-import kotlinx.coroutines.*
+/* import kotlinx.coroutines.*
 import kotlin.math.*
 import kotlin.random.Random
 
@@ -123,7 +123,4 @@ fun main() = runBlocking {
     println("Оптимальное решение найдено: $bestSolution")
 }
 
-
-
-
-
+*/
